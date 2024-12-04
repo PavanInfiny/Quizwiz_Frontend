@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 
 const Footernav = () => {
   return (
     <View style={styles.navbarcont}>
     <View style={styles.singlenav}>
+      <Link href="/Home">
       <Image
         source={require("@/assets/images/home.png")}
         style={{
@@ -12,8 +14,10 @@ const Footernav = () => {
           width: "100%",
         }}
       ></Image>
+      </Link>
     </View>
     <View style={styles.singlenav}>
+    <Link href="/Profile">
       <Image
         source={require("@/assets/images/profile.png")}
         style={{
@@ -21,15 +25,18 @@ const Footernav = () => {
           width: "100%",
         }}
       ></Image>
+      </Link>
     </View>
     <View style={styles.singlenav}>
+    <Link href="/History">
       <Image
-        source={require("@/assets/images/settings.png")}
+        source={require("@/assets/images/history.png")}
         style={{
           height: "100%",
           width: "100%",
         }}
       ></Image>
+      </Link>
     </View>
   </View>
   )
@@ -38,7 +45,7 @@ const styles=StyleSheet.create({
   navbarcont: {
     height: "10%",
     width: "80%",
-    borderWidth: 4,
+    // borderWidth: 4,
     marginBottom: 5,
     position: "absolute",
     bottom: -20,
@@ -47,14 +54,15 @@ const styles=StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    boxShadow: "10 10 20 20",
+    boxShadow: "0 0 10 5",
+    backgroundColor:"#6c95c6"
     // backgroundColor:"teal"
   },
   singlenav: {
-    width: "15%",
-    height: "60%",
-
-    // borderWidth: 2,
+    width: "8%",
+    height: "40%",
+    borderBottomWidth:4,
+    paddingBottom:2
   },
 })
 export default Footernav

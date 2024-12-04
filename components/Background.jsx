@@ -5,9 +5,9 @@ const Background = ({children}) => {
   return (
     <View style={styles.Homepagecont}>
     <ImageBackground
-      source={require("@/assets/images/backgroundimg.png")}
+      source={require("@/assets/images/backgroundimage.png")}
       style={styles.Homepagecont}
-      resizeMode="cover"
+      resizeMode="cover" 
     >
       {children}
       </ImageBackground>
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
+    // borderWidth:2
   }
 });
 export default Background
