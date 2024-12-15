@@ -8,33 +8,9 @@ import {
 import React, { useState } from "react";
 import Background from "@/components/Background";
 import Smalllogo from "@/components/Smalllogo";
-import Quizsubmitted from"@/components/Quizsubmitted";
+import Quizsubmitted from "@/components/Quizsubmitted";
 const Mainquiz = () => {
   const data = [
-    {
-      question: "What is the capital of France?",
-      questionnum: 1,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 1,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 1,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 1,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
     {
       question: "What is the capital of France?",
       questionnum: 2,
@@ -92,7 +68,7 @@ const Mainquiz = () => {
       opt4: "Rome",
       queid: 6,
       selected: 0,
-      answerwer: "Paris",
+      answer: "Paris",
       marked: "",
     },
     {
@@ -120,9 +96,10 @@ const Mainquiz = () => {
       marked: "",
     },
   ];
-  const [submit,setsubmit]=useState(true);
+  const [submit, setsubmit] = useState(true);
   const [array, setarray] = useState(data);
-
+  const [score, setscore] = useState(0);
+  let max=array.length;
   let arr = [];
   for (let i = 0; i < data.length; i++) {
     let obj = {
@@ -131,136 +108,132 @@ const Mainquiz = () => {
     };
     arr[i] = obj;
   }
- 
+  const onsubmipress = () => {
+    let temp = 0;
+    array.map((i) => {
+      // console.log(i.selected);
+      if (i.marked === i.answer) {
+        console.log(i.questionnum);
+        temp++;
+      }
+    });
+    
+    setscore(temp);
+    console.log("score", temp);
+    setsubmit(false);
+    console.log("submitted");
+  };
   const press = (optno, num) => {
     console.log(num);
     const temp = array.map((item) => {
       if (item.queid === num) {
         let choice;
-        switch(optno){
-          case 1: 
-          choice=item.opt1;
-          break;
-          case 2: 
-          choice=item.opt2;
-          break;
-          case 3: 
-          choice=item.opt3;
-          break;
-          case 4: 
-          choice=item.opt4;
-          break;
+        switch (optno) {
+          case 1:
+            choice = item.opt1;
+            break;
+          case 2:
+            choice = item.opt2;
+            break;
+          case 3:
+            choice = item.opt3;
+            break;
+          case 4:
+            choice = item.opt4;
+            break;
         }
-        return { ...item, selected: optno ,marked:choice};
+        return { ...item, selected: optno, marked: choice };
       }
       return item;
     });
- 
+
     console.log(temp);
     setarray(temp);
   };
-  // const submitpress()=>{
-  //   console.log("submitted");
-  //   // let score=0;
-  //   // array.map(i=>{
-  //   //   if(i.selected===i.answer){
-  //   //     score++;
-  //   //   }
-  //   // });
-  //   // console.log(score);
-  // }
-  const onsubmit=()=>{
-    console.log("submitted");
-  };
-  if(submit)return (
-    <Background>
-      <Smalllogo></Smalllogo>
-      <View style={styles.time}>
-        <Text>00:00:00</Text>
-      </View>
-      <View style={{ width: "80%", height: "10%" }}>
-        <View style={styles.details}>
-          <View style={styles.subdetails}>
-            <Text>Quizid : </Text>
-            <Text>QuizName : </Text>
-            <Text>Questions : </Text>
-          </View>
-          <View style={styles.subdetails}>
-            <Text>Duration : </Text>
-            <Text>Attemted : </Text>
-            <Text>Skipped : </Text>
+
+  if (submit)
+    return (
+      <Background>
+        <Smalllogo></Smalllogo>
+        <View style={styles.time}>
+          <Text>00:00:00</Text>
+        </View>
+        <View style={{ width: "80%", height: "10%" }}>
+          <View style={styles.details}>
+            <View style={styles.subdetails}>
+              <Text>Quizid : </Text>
+              <Text>QuizName : </Text>
+              <Text>Questions : </Text>
+            </View>
+            <View style={styles.subdetails}>
+              <Text>Duration : </Text>
+              <Text>Attemted : </Text>
+              <Text>Skipped : </Text>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.quiz}>
-        <FlatList
-          data={array}
-          keyExtractor={(item) => item.queid}
-          renderItem={({ item }) => (
-            <>
-              <View style={styles.container}>
-                <View style={styles.question}>
-                  <View style={styles.quenum}>
-                    <Text style={{ width: 10 }}>
-                      <>{item.questionnum}</>
-                    </Text>
+        <View style={styles.quiz}>
+          <FlatList
+            data={array}
+            keyExtractor={(item) => item.queid}
+            renderItem={({ item }) => (
+              <>
+                <View style={styles.container}>
+                  <View style={styles.question}>
+                    <View style={styles.quenum}>
+                      <Text style={{ width: 10 }}>
+                        <>{item.questionnum}</>
+                      </Text>
+                    </View>
+                    <View style={styles.que}>
+                      <Text style={styles.border}>{item.question}</Text>
+                    </View>
                   </View>
-                  <View style={styles.que}>
-                    <Text style={styles.border}>{item.question}</Text>
+                  <View style={styles.Option}>
+                    <TouchableOpacity
+                      style={
+                        item.selected === 1 ? styles.clicked : styles.singleopt
+                      }
+                      onPress={() => press(1, item.queid)}
+                    >
+                      <Text>{item.opt1}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={
+                        item.selected === 2 ? styles.clicked : styles.singleopt
+                      }
+                      onPress={() => press(2, item.queid)}
+                    >
+                      <Text>{item.opt2}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={
+                        item.selected === 3 ? styles.clicked : styles.singleopt
+                      }
+                      onPress={() => press(3, item.queid)}
+                    >
+                      <Text>{item.opt3}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={
+                        item.selected === 4 ? styles.clicked : styles.singleopt
+                      }
+                      onPress={() => press(4, item.queid)}
+                    >
+                      <Text>{item.opt4}</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
-                <View style={styles.Option}>
-                  <TouchableOpacity
-                    style={
-                      item.selected === 1 ? styles.clicked : styles.singleopt
-                    }
-                    onPress={() => press(1, item.queid)}
-                  >
-                    <Text>{item.opt1}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      item.selected === 2 ? styles.clicked : styles.singleopt
-                    }
-                    onPress={() => press(2, item.queid)}
-                  >
-                    <Text>{item.opt2}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      item.selected === 3 ? styles.clicked : styles.singleopt
-                    }
-                    onPress={() => press(3, item.queid)}
-                  >
-                    <Text>{item.opt3}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={
-                      item.selected === 4 ? styles.clicked : styles.singleopt
-                    }
-                    onPress={() => press(4, item.queid)}
-                  >
-                    <Text>{item.opt4}</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </>
-          )}
-        ></FlatList>
-      </View>
-      <TouchableOpacity onPress={()=>onsubmit} style={styles.submit}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
-    </Background>
-  );
-  return(
-    <Background>
-      <Smalllogo>
-      </Smalllogo>
-      <Quizsubmitted></Quizsubmitted>
-    </Background>
-  );
-
+              </>
+            )}
+          ></FlatList>
+        </View>
+        <TouchableOpacity onPress={() => onsubmipress()} style={styles.submit}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
+      </Background>
+    );
+  return <Quizsubmitted score={score} max={max}></Quizsubmitted>;
 };
 const styles = StyleSheet.create({
   time: {
