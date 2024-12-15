@@ -38,8 +38,7 @@ const Home = () => {
               </View>
             </View>
           </Link>
-          {/* </Link> */}
-          <View style={styles.Clickablecont}>
+          <Link href="/Quizjoin" style={styles.Clickablecont}>
             <View style={styles.createcont}>
               <View style={styles.createicon}>
                 <Image
@@ -49,13 +48,15 @@ const Home = () => {
                     height: "100%",
                     borderRadius: 20,
                   }}
+                  // resizeMode="cover"
                 ></Image>
               </View>
+
               <View>
                 <Text style={styles.createhead}>Join Quiz</Text>
               </View>
             </View>
-          </View>
+          </Link>
         </View>
         <Footernav></Footernav>
       </Background>

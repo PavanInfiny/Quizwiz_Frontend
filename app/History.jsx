@@ -27,10 +27,10 @@ const History = () => {
       <Maincont>
         <View style={{ width: "80%", height: "5%" }}>
           <View style={styles.togglecont}>
-            <View style={(toogle)?styles.clicked:styles.tooglebuttoncont} onTouchStart={()=>ontouch(true)}>
+            <View style={(toogle)?styles.clicked:styles.unclicked} onTouchStart={()=>ontouch(true)}>
               <Text style={toogle && {color:"white"}}>Created Quiz</Text>
             </View>
-            <View style={(toogle)?styles.tooglebuttoncont:styles.clicked} onTouchStart={()=>ontouch(false)}>
+            <View style={(toogle)?styles.unclicked:styles.clicked} onTouchStart={()=>ontouch(false)}>
               <Text style={!toogle && {color:"white"}}>Participated quiz</Text>
             </View>
           </View>
@@ -50,9 +50,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // padding:10,
     borderRadius:15,
+    // backgroundColor:"black",
+   
 
   },
-  tooglebuttoncont: {
+  unclicked: {
     width: "30%",
     height: 25,
     borderWidth: 1,
@@ -76,11 +78,8 @@ const styles = StyleSheet.create({
     marginVertical:5,
     borderRadius:10,
     backgroundColor:"#6c95c6",
-    color:"white"
-  },
-  unclicked:{
-
-  }
-});
+},
+}
+);
 
 export default History;

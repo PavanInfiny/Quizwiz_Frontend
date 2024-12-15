@@ -3,15 +3,25 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "app/Quevalidation.jsx", "components/Quecont.jsx", "components/Background.jsx", "components/BIglogo.jsx", "components/Footernav.jsx", "components/Maincont.jsx", "components/Smalllogo.jsx", "app/Quizcreate.jsx", "app/Home.jsx", "app/Quizconformationpage.jsx", "app/History.jsx"  ]
+    "expo-env.d.ts",
+    "app/Quevalidation.jsx",
+    "components/Quecont.jsx",
+    "components/Background.jsx",
+    "components/BIglogo.jsx",
+    "components/Footernav.jsx",
+    "components/Maincont.jsx",
+    "components/Smalllogo.jsx",
+    "app/Quizcreate.jsx",
+    "app/Home.jsx",
+    "app/Quizconformationpage.jsx",
+    "app/History.jsx",
+    "components/CreatedQuizdetails.jsx"
+  ]
 }

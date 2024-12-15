@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Quizdetails = () => {
+const Quizsubmitted = () => {
   return (
     <View>
-      <Text>Quizdetails</Text>
+      <Text>Quizsubmitted</Text>
     </View>
   )
 }
 
-export default Quizdetails
+export default Quizsubmitted
