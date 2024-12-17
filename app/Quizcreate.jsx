@@ -9,7 +9,7 @@ import {
   Button,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import React from "react";
+import React, { useRef, useState } from "react";
 import Background from "@/components/Background";
 import Smalllogo from "@/components/Smalllogo";
 import { Link } from "expo-router";
@@ -18,13 +18,20 @@ import Maincont from "@/components/Maincont";
 // import Background from "../../components/ui/Background";
 
 const Quizcreate = () => {
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [numofque, setNumOfQue] = useState("");
   return (
     <>
       <Background>
         <Smalllogo></Smalllogo>
         {/* <KeyboardAvoidingView> */}
         <Maincont>
-          <TextInput placeholder="Enter The Text" style={styles.input} />
+          <TextInput
+            placeholder="Enter The Text"
+            style={styles.input}
+            onChangeText={(value) => setText(value)}
+          />
           <Text style={styles.ortext}>OR</Text>
           <Pressable style={styles.uploadcont}>
             <Text
@@ -55,7 +62,7 @@ const Quizcreate = () => {
                 >
                   Quiz Title :
                 </Text>
-                <TextInput style={styles.Titlecont}></TextInput>
+                <TextInput style={styles.Titlecont} onChangeText={(value) => setTitle(value)}></TextInput>
               </View>
               <View style={styles.subenterycont}>
                 <Text
@@ -92,15 +99,21 @@ const Quizcreate = () => {
                 <TextInput
                   keyboardType="numeric"
                   style={styles.Titlecont}
+                  onChangeText={(value) => setNumOfQue(value)}
                 ></TextInput>
               </View>
             </View>
           </View>
-          <View >
-           
-            <Link href="/Quevalidation" style={styles.genque}>Generate Questions</Link>
-            
-            
+          <View>
+            <Link
+              href={{
+                pathname: "/Quevalidation",
+                params: { title: title, text: text, numofque: numofque },
+              }}
+              style={styles.genque}
+            >
+              Generate Questions
+            </Link>
           </View>
         </Maincont>
 
@@ -110,7 +123,6 @@ const Quizcreate = () => {
   );
 };
 const styles = StyleSheet.create({
-  
   input: {
     height: "30%",
     width: "80%",
@@ -147,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   subenterycont: {
-    width:"80%",
+    width: "80%",
     //  height:"10%",
     flex: 1,
     flexDirection: "row",

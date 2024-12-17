@@ -6,20 +6,20 @@ const Quecont = (props) => {
   return (
     <View style={styles.quizcont}>
       <Text>
-        {que.questionnum}. {que.question}
+        {que.question}
       </Text>
       <View style={styles.optcont}>
         <Text>
-          a. {que.opt1}
+          {que.option1}
         </Text>
         <Text>
-          b. {que.opt2}
+          {que.option2}
         </Text>
         <Text>
-          c. {que.opt3}
+          {que.option3}
         </Text>
         <Text>
-          d. {que.opt4}
+          {que.option4}
         </Text>
       </View>
       

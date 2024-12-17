@@ -19,7 +19,6 @@ const Quizsubmitted = (props) => {
        </View>
     </View>
     <Link style={styles.genque} href={"/Home"}>Home</Link>
-
  </Background>
   )
 }
