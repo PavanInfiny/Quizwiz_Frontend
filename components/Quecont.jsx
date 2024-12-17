@@ -3,6 +3,7 @@ import React from "react";
 
 const Quecont = (props) => {
   const que = props.que;
+  const deleteitem=props.deleteitem;
   return (
     <View style={styles.quizcont}>
       <Text>
@@ -22,9 +23,9 @@ const Quecont = (props) => {
           {que.option4}
         </Text>
       </View>
-      
-        <Image source={require("@/assets/images/delete.png")} style={styles.deletebutton}></Image>
-      
+        <View onTouchStart={()=>deleteitem(que.queid)} style={styles.deletebutton}>
+        <Image source={require("@/assets/images/delete.png")}  style={styles.img}></Image>
+        </View>
     </View>
   );
 };
@@ -49,9 +50,14 @@ const styles = StyleSheet.create({
     position:"absolute",
     width:40,
     height:40,
-    top:0,
+    top:-10,
     right:0,
+    // borderWidth:2
     
   },
+  img:{
+    width:40,
+    height:40,
+  }
 });
 export default Quecont;

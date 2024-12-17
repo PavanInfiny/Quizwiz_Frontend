@@ -20,7 +20,7 @@
     "components/Smalllogo.jsx",
     "app/Quizcreate.jsx",
     "app/Home.jsx",
-    "app/Quizconformationpage.jsx",
+    "components/Quizconformationpage.jsx",
     "app/History.jsx",
     "components/CreatedQuizdetails.jsx"
 , "components/Quizsubmitted.jsx"  ]

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Background from "@/components/Background";
 import Smalllogo from "@/components/Smalllogo";
 import Maincont from "@/components/Maincont";
@@ -7,6 +7,7 @@ import Footernav from "@/components/Footernav";
 import { Link } from "expo-router";
 
 const Quizjoin = () => {
+  const[id,setid]=useState(0);
   return (
     <Background>
       <Smalllogo></Smalllogo>
@@ -14,7 +15,11 @@ const Quizjoin = () => {
         <View style={{ height: "50%", width: "100%" }}>
           <View style={styles.maincont}>
             <View style={styles.input}>
-              <TextInput placeholder="Quiz Id"></TextInput>
+              <TextInput placeholder="Quiz Id" 
+              onChangeText={(text)=>{
+                let temp=Number(text);
+                setid(temp)
+              }}></TextInput>
             </View>
             <View style={styles.input}>
               <TextInput placeholder="Name"></TextInput>
@@ -23,7 +28,7 @@ const Quizjoin = () => {
               <TextInput placeholder="USN"></TextInput>
             </View>
             <View style={{ alignSelf: "center", borderRadius: 10 }}>
-              <Link href="/Mainquiz">
+              <Link href={ { pathname:"/Mainquiz",params:{quizid:id}}}>
                 <Text
                   style={{
                     backgroundColor: "blue",

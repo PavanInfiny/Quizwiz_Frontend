@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Background from '@/components/Background.jsx'
 import Smalllogo from '@/components/Smalllogo'
-const Quizconformationpage = () => {
-  
+import { useLocalSearchParams, useSearchParams } from 'expo-router/build/hooks'
+const Quizconformationpage = (props) => {
+  console.log("confirmstion")
+  const d=props.data
   return (
     <Background>
        <Smalllogo></Smalllogo>
@@ -15,11 +17,10 @@ const Quizconformationpage = () => {
         }}>
           <Text style={styles.text}>Your Quiz Has Been Created Successfully</Text>
           <Text>
-            Quiz Id:{}
+            Quiz Id:{d[0].quizid}
           </Text>
           </View>
        </View>
-
     </Background>
    
   )

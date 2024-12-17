@@ -9,7 +9,12 @@ import React, { useState } from "react";
 import Background from "@/components/Background";
 import Smalllogo from "@/components/Smalllogo";
 import Quizsubmitted from "@/components/Quizsubmitted";
+import { Link, useLocalSearchParams, useNavigation } from "expo-router";
 const Mainquiz = () => {
+  const {quizid}=useLocalSearchParams();
+  const[loading,setloading]=useState(true);
+
+  console.log("quizid :",quizid)
   const data = [
     {
       question: "What is the capital of France?",
