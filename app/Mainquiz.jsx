@@ -5,117 +5,147 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Background from "@/components/Background";
 import Smalllogo from "@/components/Smalllogo";
 import Quizsubmitted from "@/components/Quizsubmitted";
 import { Link, useLocalSearchParams, useNavigation } from "expo-router";
 const Mainquiz = () => {
-  const {quizid}=useLocalSearchParams();
+  const {quizid,name,usn}=useLocalSearchParams();
   const[loading,setloading]=useState(true);
-
+  const[data,setdata]=useState([])
+  const[ary,setary]=useState([])
   console.log("quizid :",quizid)
-  const data = [
-    {
-      question: "What is the capital of France?",
-      questionnum: 2,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 2,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 3,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 3,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 4,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 4,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 5,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 5,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 6,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 6,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 7,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 7,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-    {
-      question: "What is the capital of France?",
-      questionnum: 8,
-      opt1: "Berlin",
-      opt2: "Madrid",
-      opt3: "Paris",
-      opt4: "Rome",
-      queid: 8,
-      selected: 0,
-      answer: "Paris",
-      marked: "",
-    },
-  ];
+  const getdetails = async () => {
+    try {
+      console.log("inside details");
+      const response = await fetch(`http://192.168.1.2:8181/takequiz/${quizid}`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const result = await response.json(); // Parse JSON response
+      let no=0;
+      let temp=result.map((i)=>{
+        no++;
+        return {...i,marked: "",selected: 0,questionnum: no};
+      })
+      setdata(temp);
+      console.log("data :",data); // Set data to state
+      setloading(false)
+    } catch (err) {
+      console.log(err);
+    } finally {
+    }
+  };
+  useEffect(() => {
+      console.log("useEffect triggered");
+      getdetails();
+    }, []);
+
+  // const data = [
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 2,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 2,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 3,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 3,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 4,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 4,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 5,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 5,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 6,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 6,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 7,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 7,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+    // {
+    //   question: "What is the capital of France?",
+    //   questionnum: 8,
+    //   option1: "Berlin",
+    //   option2: "Madrid",
+    //   option3: "Paris",
+    //   option4: "Rome",
+    //   queid: 8,
+    //   selected: 0,
+    //   answer: "Paris",
+    //   marked: "",
+    // },
+  // ];
+
   const [submit, setsubmit] = useState(true);
   const [array, setarray] = useState(data);
   const [score, setscore] = useState(0);
-  let max=array.length;
-  let arr = [];
-  for (let i = 0; i < data.length; i++) {
-    let obj = {
-      queid: data[i].queid,
-      queoptselected: 1,
-    };
-    arr[i] = obj;
-  }
+  let max=data.length;
+  // let arr = [];
+  // for (let i = 0; i < data.length; i++) {
+  //   let obj = {
+  //     queid: data[i].queid,
+  //     queoptselected: 1,
+  //   };
+  //   arr[i] = obj;
+  // }
   const onsubmipress = () => {
     let temp = 0;
-    array.map((i) => {
+    data.map((i) => {
       // console.log(i.selected);
       if (i.marked === i.answer) {
         console.log(i.questionnum);
@@ -129,34 +159,43 @@ const Mainquiz = () => {
     console.log("submitted");
   };
   const press = (optno, num) => {
-    console.log(num);
-    const temp = array.map((item) => {
+    console.log("num :",num);
+    const temp = data.map((item) => {
       if (item.queid === num) {
         let choice;
         switch (optno) {
           case 1:
-            choice = item.opt1;
+            choice = item.option1;
             break;
           case 2:
-            choice = item.opt2;
+            choice = item.option2;
             break;
           case 3:
-            choice = item.opt3;
+            choice = item.option3;
             break;
           case 4:
-            choice = item.opt4;
+            choice = item.option4;
             break;
         }
+
         return { ...item, selected: optno, marked: choice };
       }
+      console.log("item :",data)
       return item;
     });
 
     console.log(temp);
-    setarray(temp);
+    setdata(temp);
   };
-
-  if (submit)
+  if(loading){
+    return(
+    <Background>
+      <Smalllogo></Smalllogo>
+      <Text>Loading</Text>
+    </Background>
+    )
+  }
+  if(submit)
     return (
       <Background>
         <Smalllogo></Smalllogo>
@@ -166,9 +205,9 @@ const Mainquiz = () => {
         <View style={{ width: "80%", height: "10%" }}>
           <View style={styles.details}>
             <View style={styles.subdetails}>
-              <Text>Quizid : </Text>
-              <Text>QuizName : </Text>
-              <Text>Questions : </Text>
+              <Text>Quizid : {quizid}</Text>
+              <Text>Name : {name}</Text>
+              <Text>User id : {usn}</Text>
             </View>
             <View style={styles.subdetails}>
               <Text>Duration : </Text>
@@ -179,7 +218,7 @@ const Mainquiz = () => {
         </View>
         <View style={styles.quiz}>
           <FlatList
-            data={array}
+            data={data}
             keyExtractor={(item) => item.queid}
             renderItem={({ item }) => (
               <>
@@ -201,7 +240,7 @@ const Mainquiz = () => {
                       }
                       onPress={() => press(1, item.queid)}
                     >
-                      <Text>{item.opt1}</Text>
+                      <Text>{item.option1}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={
@@ -209,7 +248,7 @@ const Mainquiz = () => {
                       }
                       onPress={() => press(2, item.queid)}
                     >
-                      <Text>{item.opt2}</Text>
+                      <Text>{item.option2}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={
@@ -217,7 +256,7 @@ const Mainquiz = () => {
                       }
                       onPress={() => press(3, item.queid)}
                     >
-                      <Text>{item.opt3}</Text>
+                      <Text>{item.option3}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={
@@ -225,7 +264,7 @@ const Mainquiz = () => {
                       }
                       onPress={() => press(4, item.queid)}
                     >
-                      <Text>{item.opt4}</Text>
+                      <Text>{item.option4}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -238,7 +277,7 @@ const Mainquiz = () => {
         </TouchableOpacity>
       </Background>
     );
-  return <Quizsubmitted score={score} max={max}></Quizsubmitted>;
+  return <Quizsubmitted score={score} max={data.length} quizid={quizid} userid={usn}></Quizsubmitted>;
 };
 const styles = StyleSheet.create({
   time: {

@@ -7,7 +7,9 @@ import Footernav from "@/components/Footernav";
 import { Link } from "expo-router";
 
 const Quizjoin = () => {
-  const[id,setid]=useState(0);
+  const [quizid, setquizid] = useState(0);
+  const [name, setname] = useState("");
+  const [usn, setusn] = useState("");
   return (
     <Background>
       <Smalllogo></Smalllogo>
@@ -15,24 +17,41 @@ const Quizjoin = () => {
         <View style={{ height: "50%", width: "100%" }}>
           <View style={styles.maincont}>
             <View style={styles.input}>
-              <TextInput placeholder="Quiz Id" 
-              onChangeText={(text)=>{
-                let temp=Number(text);
-                setid(temp)
-              }}></TextInput>
+              <TextInput
+                placeholder="Quiz Id"
+                onChangeText={(text) => {
+                  let temp = Number(text);
+                  setquizid(temp);
+                }}
+              ></TextInput>
             </View>
             <View style={styles.input}>
-              <TextInput placeholder="Name"></TextInput>
+              <TextInput
+                placeholder="Name"
+                onChangeText={(item) => {
+                  setname(item);
+                }}
+              ></TextInput>
             </View>
             <View style={styles.input}>
-              <TextInput placeholder="USN"></TextInput>
+              <TextInput
+                placeholder="USN"
+                onChangeText={(item) => {
+                  setusn(item);
+                }}
+              ></TextInput>
             </View>
             <View style={{ alignSelf: "center", borderRadius: 10 }}>
-              <Link href={ { pathname:"/Mainquiz",params:{quizid:id}}}>
+              <Link
+                href={{
+                  pathname: "/Mainquiz",
+                  params: { quizid: quizid, name: name, usn: usn },
+                }}
+              >
                 <Text
                   style={{
                     backgroundColor: "blue",
-                    color: "white",   
+                    color: "white",
                     padding: 10,
                     borderRadius: 10,
                   }}

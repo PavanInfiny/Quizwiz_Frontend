@@ -2,10 +2,12 @@ import { View, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import Background from '@/components/Background.jsx'
 import Smalllogo from '@/components/Smalllogo'
+import HomeButton from'@/components/HomeButton'
 import { useLocalSearchParams, useSearchParams } from 'expo-router/build/hooks'
 const Quizconformationpage = (props) => {
   console.log("confirmstion")
   const d=props.data
+  
   return (
     <Background>
        <Smalllogo></Smalllogo>
@@ -20,7 +22,10 @@ const Quizconformationpage = (props) => {
             Quiz Id:{d[0].quizid}
           </Text>
           </View>
+         
        </View>
+       <HomeButton></HomeButton>
+       
     </Background>
    
   )

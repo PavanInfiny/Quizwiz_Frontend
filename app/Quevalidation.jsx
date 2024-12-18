@@ -9,7 +9,7 @@ import Quizconformationpage from "@/components/Quizconformationpage";
 
 const Quevalidation = () => {
   const [loading, setloading] = useState(true); /// change to false
-  const { text, numofque, title } = useLocalSearchParams();
+  const { text, numofque, title ,userid} = useLocalSearchParams();
   const [load, setload] = useState(true);
   console.log("text:", text);
   console.log("numofque:", numofque);
@@ -128,9 +128,10 @@ const Quevalidation = () => {
           "Content-Type": "application/json", // Set the content type
         },
         body: JSON.stringify({
-          title: title,
+          quiztitle: title,
           quizid: data[0].quizid,
           numofque: data.length,
+          userid:userid,
         }),
       }); // API URL
       if (!response.ok) {

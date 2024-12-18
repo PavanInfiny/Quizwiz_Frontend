@@ -1,11 +1,55 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Background from './Background';
 import Smalllogo from './Smalllogo';
 import { Link } from 'expo-router';
 
 const Quizsubmitted = (props) => {
   const score=props.score;
+  const max=props.max;
+  const [loading,setloading]=useState(true);
+  const senddetails = async () => {
+    try {
+      console.log("inside details");
+      const response = await fetch("http://192.168.1.2:8181/addparticipated", {
+        method: "POST", // Specify the method
+        headers: {
+          "Content-Type": "application/json", // Set the content type
+        },
+        body: JSON.stringify({
+          maxscore: max,
+          quizid: props.quizid,
+          score: props.score,
+          userid:props.userid,
+         
+        }),
+      }); // API URL
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      setloading(false);
+      const result = await response.json(); // Parse JSON response
+      console.log(result); // Set data to state
+      
+    } catch (err) {
+      console.log(err);
+    } finally {
+    }
+  };
+  useEffect(() => {
+      console.log("useEffect triggered");
+      senddetails();
+    }, []);
+  if(loading){
+    return<>
+    <Background>
+      <Smalllogo></Smalllogo>
+      <View>
+        <Text>Loading</Text>
+      </View>
+    </Background>
+    </>
+  }
   return (
     <Background>
     <Smalllogo></Smalllogo>

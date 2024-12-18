@@ -21,6 +21,7 @@ const Quizcreate = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [numofque, setNumOfQue] = useState("");
+  const [userid, setuserid] = useState(0);
   return (
     <>
       <Background>
@@ -65,24 +66,19 @@ const Quizcreate = () => {
                 <TextInput style={styles.Titlecont} onChangeText={(value) => setTitle(value)}></TextInput>
               </View>
               <View style={styles.subenterycont}>
-                <Text
+              <Text
                   style={{
                     fontSize: 12,
                     // borderWidth: 1,
-
-                    // width: "40%",
+                    // width: "30%",
                     // height:"10%",
                   }}
                 >
-                  Question Type :
+                  UserId :
                 </Text>
-                {/* <Picker></Picker> */}
-                {/* <DropDownPicker style={{
-                borderWidth:0,
-                // width:"60%",
-                marginLeft:10,
-                
-              }}></DropDownPicker> */}
+                <TextInput style={styles.Titlecont} onChangeText={(value) => {
+                  const temp=parseInt(value)
+                  setuserid(temp)}}></TextInput>
               </View>
               <View style={styles.subenterycont}>
                 <Text
@@ -108,7 +104,7 @@ const Quizcreate = () => {
             <Link
               href={{
                 pathname: "/Quevalidation",
-                params: { title: title, text: text, numofque: numofque },
+                params: { title: title, text: text, numofque: numofque,userid:userid },
               }}
               style={styles.genque}
             >
