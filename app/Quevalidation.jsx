@@ -6,7 +6,7 @@ import Maincont from "@/components/Maincont";
 import Quecont from "@/components/Quecont";
 import { Link, useLocalSearchParams, useNavigation } from "expo-router";
 import Quizconformationpage from "@/components/Quizconformationpage";
-
+import { API_BASE_URL } from '@env';
 const Quevalidation = () => {
   const [loading, setloading] = useState(true); /// change to false
   const { text, numofque, title ,userid} = useLocalSearchParams();
@@ -15,63 +15,9 @@ const Quevalidation = () => {
   console.log("numofque:", numofque);
   console.log("title", title);
   console.log("welcome");
-  // const title = "cricket";
-  // const navigation = useNavigation();
-  const [data, setdata] = useState([
-    // {
-    //   answer: "b) The bill passed with a narrow majority.",
-    //   option1: "a) The bill was rejected by a significant margin.",
-    //   option2: "b) The bill passed with a narrow majority.",
-    //   option3: "c) The bill passed with a unanimous vote.",
-    //   option4: "d) The bill was tabled for further discussion.",
-    //   queid: 92547,
-    //   question:
-    //     "What was the outcome of the vote on the 'one nation, one election' bill in Parliament?",
-    //   quizid: 14022,
-    // },
 
-    // {
-    //   answer: "c) The relatively narrow margin of victory.",
-    //   option1: "a) The use of a simple majority vote.",
-    //   option2: "b) The total number of MPs who voted.",
-    //   option3: "c) The relatively narrow margin of victory.",
-    //   option4: "d) The formal introduction process in Parliament.",
-    //   queid: 90104,
-    //   question:
-    //     'What aspect of the "one nation, one election" bill\'s parliamentary passage did critics highlight as problematic?',
-    //   quizid: 14022,
-    // },
-    // {
-    //   answer: "b) A simple majority vote.",
-    //   option1: "a) A unanimous vote of all MPs.",
-    //   option2: "b) A simple majority vote.",
-    //   option3: "c)two-thirds majority vote.",
-    //   option4: "d) A referendum.",
-    //   queid: 3643,
-    //   question:
-    //     'What action in Parliament formally initiated the legislative process for the "one nation, one election" bill?',
-    //   quizid: 14022,
-    // },
-    // {
-    //   answer: "",
-    //   option1: "",
-    //   option2: "",
-    //   option3: "",
-    //   option4: "",
-    //   queid: 32823,
-    //   question: "Unable to generate a valid question.",
-    //   quizid: 14022,
-    // },
-    // {
-    //   answer: "",
-    //   option1: "",
-    //   option2: "",
-    //   option3: "",
-    //   option4: "",
-    //   queid: 68732,
-    //   question: "Unable to generate a valid question.",
-    //   quizid: 14022,
-    // },
+  const [data, setdata] = useState([
+
   ]);
   const deleteitem = (id) => {
     const newdata = data.filter((item) => item.queid != id);
@@ -90,8 +36,8 @@ const Quevalidation = () => {
   };
   const sendmcqs = async (i) => {
     try {
-      console.log("inside mcqs");
-      const response = await fetch("http://192.168.1.2:8181/addquizmcqs", {
+      
+      const response = await fetch(`${API_BASE_URL}addquizmcqs`, {
         method: "POST", // Specify the method
         headers: {
           "Content-Type": "application/json", // Set the content type
@@ -122,7 +68,7 @@ const Quevalidation = () => {
   const senddetails = async () => {
     try {
       console.log("inside details");
-      const response = await fetch("http://192.168.1.2:8181/addquizdetail", {
+      const response = await fetch(`${API_BASE_URL}addquizdetail`, {
         method: "POST", // Specify the method
         headers: {
           "Content-Type": "application/json", // Set the content type
@@ -197,6 +143,8 @@ const Quevalidation = () => {
             keyExtractor={(item) => item.quenumber}
             renderItem={({ item }) => (
               <Quecont que={item} deleteitem={deleteitem}></Quecont>
+              
+              
             )}
           ></FlatList>
 

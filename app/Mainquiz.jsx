@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { API_BASE_URL } from '@env';
 import React, { useEffect, useState } from "react";
 import Background from "@/components/Background";
 import Smalllogo from "@/components/Smalllogo";
@@ -15,11 +16,13 @@ const Mainquiz = () => {
   const[loading,setloading]=useState(true);
   const[data,setdata]=useState([])
   const[ary,setary]=useState([])
-  console.log("quizid :",quizid)
+  // console.log("quizid :",quizid)
   const getdetails = async () => {
     try {
-      console.log("inside details");
-      const response = await fetch(`http://192.168.1.2:8181/takequiz/${quizid}`, {
+      // console.log("inside details");
+      console.log(API_BASE_URL)
+      console.log(`${API_BASE_URL}takequiz/${quizid}`)
+      const response = await fetch(`${API_BASE_URL}takequiz/${quizid}`, {
         method: "GET",
       });
       if (!response.ok) {
@@ -32,7 +35,7 @@ const Mainquiz = () => {
         return {...i,marked: "",selected: 0,questionnum: no};
       })
       setdata(temp);
-      console.log("data :",data); // Set data to state
+      // console.log("data :",data); // Set data to state
       setloading(false)
     } catch (err) {
       console.log(err);

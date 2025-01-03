@@ -23,5 +23,5 @@
     "components/Quizconformationpage.jsx",
     "app/History.jsx",
     "components/CreatedQuizdetails.jsx"
-, "components/Quizsubmitted.jsx"  ]
+, "components/Quizsubmitted.jsx", "components/Createdquiz.jsx"  ]
 }

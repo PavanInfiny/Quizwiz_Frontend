@@ -8,12 +8,11 @@ const Participatedquizdetails = (props) => {
       
       <View style={{width:"50%"}}>
       <Text>Quiz Id : {data.quizid}</Text>
-      <Text>Quiz Title : {data.quiztitle}</Text>
+      <Text>User Id : {data.userid}</Text>
       </View>
       <View style={{width:"50%"}}>
-      <Text>Participated: {data.createdon}</Text>
+      <Text>maxscore: {data.maxscore}</Text>
       <Text>Your Score : {data.score}</Text>
-      <Text>creator id: {data.score}</Text>
       </View>
     </View>
   )

@@ -33,7 +33,7 @@ const Quizcreate = () => {
             style={styles.input}
             onChangeText={(value) => setText(value)}
           />
-          <Text style={styles.ortext}>OR</Text>
+          {/* <Text style={styles.ortext}>OR</Text>
           <Pressable style={styles.uploadcont}>
             <Text
               style={{
@@ -42,7 +42,7 @@ const Quizcreate = () => {
             >
               Upload Doc
             </Text>
-          </Pressable>
+          </Pressable> */}
           <View
             style={{
               height: "30%",

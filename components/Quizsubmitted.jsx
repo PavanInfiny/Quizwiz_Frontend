@@ -1,17 +1,21 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Background from './Background';
-import Smalllogo from './Smalllogo';
-import { Link } from 'expo-router';
-
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import Background from "./Background";
+import Smalllogo from "./Smalllogo";
+import { Link } from "expo-router";
+import { API_BASE_URL } from "@env";
 const Quizsubmitted = (props) => {
-  const score=props.score;
-  const max=props.max;
-  const [loading,setloading]=useState(true);
+  const score = props.score;
+  const max = props.max;
+  const [loading, setloading] = useState(true);
   const senddetails = async () => {
     try {
       console.log("inside details");
-      const response = await fetch("http://192.168.1.2:8181/addparticipated", {
+      console.log(`${API_BASE_URL}addparticipated`);
+      let str = props.userid +""+ props.quizid;
+      const id = parseInt(str);
+      console.log(id);
+      const response = await fetch(`${API_BASE_URL}addparticipated`, {
         method: "POST", // Specify the method
         headers: {
           "Content-Type": "application/json", // Set the content type
@@ -20,8 +24,8 @@ const Quizsubmitted = (props) => {
           maxscore: max,
           quizid: props.quizid,
           score: props.score,
-          userid:props.userid,
-         
+          userid: props.userid,
+          id: id,
         }),
       }); // API URL
       if (!response.ok) {
@@ -30,53 +34,60 @@ const Quizsubmitted = (props) => {
       setloading(false);
       const result = await response.json(); // Parse JSON response
       console.log(result); // Set data to state
-      
     } catch (err) {
       console.log(err);
     } finally {
     }
   };
   useEffect(() => {
-      console.log("useEffect triggered");
-      senddetails();
-    }, []);
-  if(loading){
-    return<>
-    <Background>
-      <Smalllogo></Smalllogo>
-      <View>
-        <Text>Loading</Text>
-      </View>
-    </Background>
-    </>
+    console.log("useEffect triggered");
+    senddetails();
+  }, []);
+  if (loading) {
+    return (
+      <>
+        <Background>
+          <Smalllogo></Smalllogo>
+          <View>
+            <Text>Loading</Text>
+          </View>
+        </Background>
+      </>
+    );
   }
   return (
     <Background>
-    <Smalllogo></Smalllogo>
-    <View style={styles.continer}>
-     <View style={{flex:1,
-       flexDirection:"column",
-       justifyContent:"center",
-       alignItems:"center"
-     }}>
-       <Text style={styles.text}>Your Quiz Score : {score}/{props.max}</Text>
-       </View>
-    </View>
-    <Link style={styles.genque} href={"/Home"}>Home</Link>
- </Background>
-  )
-}
-const styles=StyleSheet.create({
-  continer:{
-    margin:"5%",
-    width:"80%",
-    marginTop:"50%",
-    backgroundColor:"#bddaec",
-    padding:"5%",
-    height:"20%",
-    borderRadius:30
-  }
-  ,
+      <Smalllogo></Smalllogo>
+      <View style={styles.continer}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.text}>
+            Your Quiz Score : {score}/{props.max}
+          </Text>
+        </View>
+      </View>
+      <Link style={styles.genque} href={"/Home"}>
+        Home
+      </Link>
+    </Background>
+  );
+};
+const styles = StyleSheet.create({
+  continer: {
+    margin: "5%",
+    width: "80%",
+    marginTop: "50%",
+    backgroundColor: "#bddaec",
+    padding: "5%",
+    height: "20%",
+    borderRadius: 30,
+  },
   genque: {
     marginTop: 20,
     backgroundColor: "#0a335d",
@@ -84,6 +95,6 @@ const styles=StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-})
+});
 
-export default Quizsubmitted
+export default Quizsubmitted;
